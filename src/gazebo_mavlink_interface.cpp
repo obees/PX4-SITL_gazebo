@@ -960,6 +960,7 @@ void GazeboMavlinkInterface::VisionCallback(OdomPtr& odom_message) {
     odom_message->angular_velocity().z()));
 
   // Only sends ODOMETRY msgs if send_odometry is set and the protocol version is 2.0
+  gzmsg << "before odometry if " <<  "\n";
   if (send_odometry_ && protocol_version_ == 2.0) {
     // send ODOMETRY Mavlink msg
     mavlink_odometry_t odom;
@@ -1003,7 +1004,7 @@ void GazeboMavlinkInterface::VisionCallback(OdomPtr& odom_message) {
         count++;
       }
     }
-
+    gzmsg << "before odometry msg send " <<  "\n";
     mavlink_msg_odometry_encode_chan(1, 200, MAVLINK_COMM_0, &msg, &odom);
     mavlink_interface_->send_mavlink_message(&msg);
   }
